@@ -1,44 +1,23 @@
 import 'package:flut_nasa_image_lib/models/image_gallery.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Image{
-  final String id;
-  final String title;
-  final String location;
-  final String description;
-  final String imageUrl;
-  final List<ImageGallery> imageGallery;
+part 'image.freezed.dart';
+part 'image.g.dart';
 
-  Image({
-    this.id = '',
-    this.title = '',
-    this.location = '',
-    this.description = '',
-    this.imageUrl = '',
-    this.imageGallery = const [],
-  });
+@freezed
+@JsonSerializable(explicitToJson: true)
+class Image with _$Image {
+  const factory Image({
+    required String id,
+    required String title,
+    required String location,
+    required String description,
+    @JsonKey(name: 'image_url') required String imageUrl,
+    @JsonKey(name: 'image_gallery') required List<ImageGallery> imageGallery,
+  }) = _Image;
 
-  factory Image.fromMap({
-    required Map<String, Object> map,
-  }){
-    return Image(
-      id: map['id'] as String,
-      title: map['title'] as String,
-      location: (map['location'] ?? 'Unknown') as String,
-      description: map['description'] as String,
-      imageUrl: map['image_url'] as String,
-      imageGallery: (map['imageGallery'] as List<Map<String, Object>>)
-        .map((imageMap) => ImageGallery.fromMap(map: imageMap)).toList(),
-    );
-  }
+  factory Image.empty() => const Image(id: '', description: '', imageGallery: [], imageUrl: '', location: '', title: '');
 
-  Map<String, Object> toMap() {
-    return {
-      'id': id,
-      'title': title,
-      'location': location,
-      'description': description,
-      'image_url': imageUrl,
-      'imageGallery': imageGallery.map((image) => image.toMap()).toList(),
-    };
-  }
+  factory Image.fromJson(Map<String, dynamic> json) => _$ImageFromJson(json);
+
 }

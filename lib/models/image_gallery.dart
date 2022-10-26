@@ -1,25 +1,14 @@
-class ImageGallery {
-  final String masterImageId;
-  final String imageUrl;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  ImageGallery({
-    required this.masterImageId,
-    required this.imageUrl,
-  });
+part 'image_gallery.freezed.dart';
+part 'image_gallery.g.dart';
 
-  factory ImageGallery.fromMap({
-    required Map<String, Object> map,
-  }) {
-    return ImageGallery(
-      masterImageId: map['master_image_id'] as String,
-      imageUrl: map['image_url'] as String,
-    );
-  }
+@freezed
+class ImageGallery with _$ImageGallery {
+  const factory ImageGallery({
+    @JsonKey(name: 'master_image_id') required String masterImageId,
+    @JsonKey(name: 'image_url') required String imageUrl,
+  }) = _ImageGallery;
 
-  Map<String, Object> toMap() {
-    return {
-      'master_image_id': masterImageId,
-      'image_url': imageUrl,
-    };
-  }
+  factory ImageGallery.fromJson(Map<String, dynamic> json) => _$ImageGalleryFromJson(json);
 }
