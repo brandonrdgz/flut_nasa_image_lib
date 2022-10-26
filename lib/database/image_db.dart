@@ -10,26 +10,48 @@ class ImageDB {
     required Image image,
   }) async {
     Database database = await _databaseProvider.database;
+    Batch batch = database.batch();
 
     if((await getImage(id: image.id)).id.isNotEmpty) {
       return;
     }
 
-    Map<String, Object> imageMap = image.toMap();
-    List<Map<String, Object>> imageGallery = ((imageMap.remove('imageGallery') ?? {}) as List).cast<Map<String, Object>>();
-    await database.insert('image', imageMap);
-    await _insertImageGallery(
-      database: database,
-      imageGalleryMap: imageGallery,
-    );
+    Map<String, dynamic> imageMap = image.toJson();
+    List<Map<String, dynamic>> imageGalleryMap = imageMap.remove('image_gallery') as List<Map<String, dynamic>>;
+
+    batch.insert('image', imageMap);
+    _insertImageGallery(batch: batch, imageGalleryMap: imageGalleryMap);
+
+    await batch.commit();
+  }
+
+  static Future<void> insertImages({
+    required List<Image> images,
+  }) async {
+    Database database = await _databaseProvider.database;
+    Batch batch = database.batch();
+
+    for(Image image in images) {
+      if((await getImage(id: image.id)).id.isNotEmpty) {
+        continue;
+      }
+
+      Map<String, dynamic> imageMap = image.toJson();
+      List<Map<String, dynamic>> imageGalleryMap = imageMap.remove('image_gallery') as List<Map<String, dynamic>>;
+
+      batch.insert('image', imageMap);
+      _insertImageGallery(batch: batch, imageGalleryMap: imageGalleryMap);
+    }
+
+    await batch.commit(noResult: true);
   }
 
   static Future<void> _insertImageGallery({
-    required Database database,
-    required List<Map<String, Object>> imageGalleryMap,
+    required Batch batch,
+    required List<Map<String, dynamic>> imageGalleryMap,
   }) async {
-    for(Map<String, Object> image in imageGalleryMap) {
-      await database.insert('image_gallery', image);
+    for(Map<String, dynamic> imageMap in imageGalleryMap) {
+      batch.insert('image_gallery', imageMap);
     }
   }
   
@@ -37,7 +59,7 @@ class ImageDB {
     required String id,
   }) async {
     Database database = await _databaseProvider.database;
-    List<Map> resultSet = await database.query(
+    List<Map<String, Object?>> resultSet = await database.query(
         'image',
         where: 'id = ?',
         whereArgs: [id],
@@ -45,32 +67,32 @@ class ImageDB {
     List<Map<String, Object>> imageMapList = resultSet.castMapList<String, Object>();
 
     if(imageMapList.isEmpty) {
-      return Image();  
+      return Image.empty();  
     }
 
     imageMapList[0].addAll({
-      'imageGallery': await _getImageGallery(database: database, id: id),
+      'image_gallery': await _getImageGallery(database: database, id: id),
     });
 
-    return Image.fromMap(map: imageMapList[0]);
+    return Image.fromJson(imageMapList[0]);
   }
 
   static Future<List<Image>> getImages() async {
     Database database = await _databaseProvider.database;
-    List<Map> resultSet = await database.query('image');
+    List<Map<String, Object?>> resultSet = await database.query('image');
     List<Map<String, Object>> imagesMap =  resultSet.castMapList<String, Object>();
 
     List<Image> images = [];
 
     for(Map<String, Object> imageMap in imagesMap) {
       imageMap.addAll({
-        'imageGallery': await _getImageGallery(
+        'image_gallery': await _getImageGallery(
           database: database,
           id: (imageMap['id'] ?? '') as String
         )
       });
 
-      images.add(Image.fromMap(map: imageMap));
+      images.add(Image.fromJson(imageMap));
     }
 
     return images;
@@ -80,7 +102,7 @@ class ImageDB {
     required Database database,
     required String id,
   }) async {
-    List<Map> resultSet = await database.query(
+    List<Map<String, Object?>> resultSet = await database.query(
         'image_gallery',
         where: 'master_image_id = ?',
         whereArgs: [id],

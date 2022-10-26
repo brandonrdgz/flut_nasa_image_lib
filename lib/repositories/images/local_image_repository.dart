@@ -14,6 +14,12 @@ class LocalImageRepository implements IImageRepository {
   }) async {
     await ImageDB.insertImage(image: image);
   }
+
+  Future<void> insertImages({
+    required List<Image> images,
+  }) async {
+    await ImageDB.insertImages(images: images);
+  }
   
   @override
   Future<Image> getImage({required String id}) async {

@@ -24,7 +24,7 @@ class FavoriteDB {
   }) async {
     Database database = await _databaseProvider.database;
 
-    List<Map> resultSet = await database.query(
+    List<Map<String, Object?>> resultSet = await database.query(
         'favorites',
         where: 'image_id = ?',
         whereArgs: [imageId]
@@ -32,7 +32,7 @@ class FavoriteDB {
     List<Map<String, Object>> favorite = resultSet.castMapList<String, Object>();
 
     if(favorite.isEmpty || favorite[0].isEmpty) {
-      return Image();
+      return Image.empty();
     }
     else {
       return await ImageDB.getImage(id: imageId);
@@ -42,7 +42,7 @@ class FavoriteDB {
   static Future<List<Image>> getFavorites() async {
     Database database = await _databaseProvider.database;
 
-    List<Map> resultSet = await database.query('favorites');
+    List<Map<String, Object?>> resultSet = await database.query('favorites');
     List<Map<String, Object>> favorites = resultSet.castMapList<String, Object>();
 
     List<Image> images = [];
