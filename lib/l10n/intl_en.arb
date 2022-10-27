@@ -1,0 +1,11 @@
+{
+    "appTitle": "Flut NASA Image Library",
+    "emptyImagesList": "No images available",
+    "homeDrawerSection": "Home",
+    "favoritesDrawerSection": "Favorites",
+    "favoritesPageTitle": "Favorites",
+    "emptyFavoritesList": "You dont't have any favorites",
+    "description": "Description",
+    "gallery": "Gallery",
+    "close": "Close"
+}

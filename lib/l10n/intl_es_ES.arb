@@ -1,0 +1,11 @@
+{
+    "appTitle": "Flut Biblioteca de imágenes de la NASA",
+    "emptyImagesList": "No hay imágenes disponibles",
+    "homeDrawerSection": "Inicio",
+    "favoritesDrawerSection": "Favoritos",
+    "favoritesPageTitle": "Favoritos",
+    "emptyFavoritesList": "Aún no tienes favoritos",
+    "description": "Descripción",
+    "gallery": "Galería",
+    "close": "Cerrar"
+}
