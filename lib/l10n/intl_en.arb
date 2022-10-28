@@ -7,5 +7,9 @@
     "emptyFavoritesList": "You dont't have any favorites",
     "description": "Description",
     "gallery": "Gallery",
-    "close": "Close"
+    "close": "Close",
+    "snackBarRetry": "Retry",
+    "serverError": "Server error",
+    "networkError": "Network error. Try again later",
+    "generalError": "Unexpected error"
 }

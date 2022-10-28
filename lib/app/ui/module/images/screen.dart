@@ -2,10 +2,10 @@ import 'package:flut_nasa_image_lib/app/core/di.dart';
 import 'package:flut_nasa_image_lib/app/core/module/images/image.dart' as model;
 import 'package:flut_nasa_image_lib/app/ui/widget/app/app_scaffold.dart';
 import 'package:flut_nasa_image_lib/app/ui/widget/common/empty.dart';
-import 'package:flut_nasa_image_lib/app/ui/widget/common/error.dart';
 import 'package:flut_nasa_image_lib/app/ui/widget/images/gallery/image_gallery_card.dart';
 import 'package:flut_nasa_image_lib/app/ui/widget/images/image_card.dart';
 import 'package:flut_nasa_image_lib/app/ui/widget/images/image_description_card.dart';
+import 'package:flut_nasa_image_lib/app/utils/widget/snackbar/errors.dart';
 import 'package:flut_nasa_image_lib/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +16,21 @@ class ImagesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<List<model.Image>> imagesAsyncValue = ref.watch(imagesScreenControllerProvider);
+
+    ref.listen(
+      imagesScreenControllerProvider,
+      (_, nextState) => nextState.whenOrNull(
+        error: (error, stackTrace) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            Errors.getErrorSnackbar(
+              context: context,
+              error: error,
+              onActionPressed: () => ref.read(imagesScreenControllerProvider.notifier).getImages()
+            )
+          );
+        },
+      ),
+    );
 
     return AppScaffold(
       buildDrawer: true,
@@ -37,7 +52,7 @@ class ImagesScreen extends ConsumerWidget {
           }
         },
         error: (error, stackTrace) {
-          return Error(message: error.toString());
+          return Empty(message: S.of(context).emptyImagesList);
         },
         loading: () => const Center(child: CircularProgressIndicator(),),
       ),
@@ -45,7 +60,6 @@ class ImagesScreen extends ConsumerWidget {
   }
 
 }
-
 
 class ImageDetailScreen extends ConsumerWidget {
   final model.Image image;

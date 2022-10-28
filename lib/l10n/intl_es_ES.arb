@@ -7,5 +7,9 @@
     "emptyFavoritesList": "Aún no tienes favoritos",
     "description": "Descripción",
     "gallery": "Galería",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "snackBarRetry": "Reintentar",
+    "serverError": "Ocurrió un error con el servidor",
+    "networkError": "Error de red. Intente de nuevo más tarde",
+    "generalError": "Ocurrió un error inesperado"
 }

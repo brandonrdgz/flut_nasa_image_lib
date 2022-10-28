@@ -139,6 +139,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Retry`
+  String get snackBarRetry {
+    return Intl.message(
+      'Retry',
+      name: 'snackBarRetry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Server error`
+  String get serverError {
+    return Intl.message(
+      'Server error',
+      name: 'serverError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Network error. Try again later`
+  String get networkError {
+    return Intl.message(
+      'Network error. Try again later',
+      name: 'networkError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unexpected error`
+  String get generalError {
+    return Intl.message(
+      'Unexpected error',
+      name: 'generalError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

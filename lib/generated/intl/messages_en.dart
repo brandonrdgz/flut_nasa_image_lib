@@ -34,6 +34,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Favorites"),
         "favoritesPageTitle": MessageLookupByLibrary.simpleMessage("Favorites"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
-        "homeDrawerSection": MessageLookupByLibrary.simpleMessage("Home")
+        "generalError":
+            MessageLookupByLibrary.simpleMessage("Unexpected error"),
+        "homeDrawerSection": MessageLookupByLibrary.simpleMessage("Home"),
+        "networkError": MessageLookupByLibrary.simpleMessage(
+            "Network error. Try again later"),
+        "serverError": MessageLookupByLibrary.simpleMessage("Server error"),
+        "snackBarRetry": MessageLookupByLibrary.simpleMessage("Retry")
       };
 }
