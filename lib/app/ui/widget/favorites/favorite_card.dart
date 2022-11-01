@@ -1,7 +1,7 @@
 import 'package:flut_nasa_image_lib/app/core/di.dart';
 import 'package:flut_nasa_image_lib/app/core/module/images/image.dart' as model;
 import 'package:flut_nasa_image_lib/app/ui/module/images/screen.dart';
-import 'package:flut_nasa_image_lib/app/ui/widget/common/common_card.dart';
+import 'package:flut_nasa_image_lib/app/ui/widget/app/app_card.dart';
 import 'package:flut_nasa_image_lib/app/utils/ui/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,7 +17,7 @@ class FavoriteCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<Widget> imageWidgetAsyncValue = ref.watch(imageWidgetProvider(favorite.imageUrl));
-    return CommonCard(
+    return AppCard(
       cardContent: ListTile(
         leading: imageWidgetAsyncValue.when(
           data: (image) => image,

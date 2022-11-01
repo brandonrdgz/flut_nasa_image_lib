@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flut_nasa_image_lib/app/ui/widget/common/common_snackbar.dart';
+import 'package:flut_nasa_image_lib/app/ui/widget/app/app_snackbar.dart';
 import 'package:flut_nasa_image_lib/app/utils/widget/snackbar/snackbar_messages.dart';
 import 'package:flut_nasa_image_lib/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class Errors {
     
     SnackBarMessages snackBarMessages = messagesFunction(context, error);
 
-    return CommonSnackbar.snackBar(
+    return AppSnackbar.snackBar(
       context: context,
       content: Text(
         snackBarMessages.contentMessage,

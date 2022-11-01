@@ -49,13 +49,13 @@ class FavoriteButtonController extends StateNotifier<AsyncValue<Widget>> {
       _isFavorite = favorite.id.isNotEmpty;
       state = AsyncValue.data(
         _isFavorite ?
-        FavoriteRedFilledButton(onTap: () => removeFavorite()):
-        FavoriteOutlinedButton(onTap: () => addFavorite())
+        FavoriteRedFilledButton(onPressed: () => removeFavorite()):
+        FavoriteOutlinedButton(onPressed: () => addFavorite())
       );
     }
     catch(error, stackTrace) {
       _isFavorite = false;
-      state = AsyncValue.data(FavoriteOutlinedButton(onTap: () => addFavorite()));
+      state = AsyncValue.data(FavoriteOutlinedButton(onPressed: () => addFavorite()));
     }
   }
 
@@ -64,10 +64,10 @@ class FavoriteButtonController extends StateNotifier<AsyncValue<Widget>> {
       state = const AsyncValue.loading();
       await favoriteService.addFavorite(imageId: imageId);
       _isFavorite = true;
-      state = AsyncValue.data(FavoriteRedFilledButton(onTap: () => removeFavorite()));
+      state = AsyncValue.data(FavoriteRedFilledButton(onPressed: () => removeFavorite()));
     }
     catch(error, stackTrace) {
-      state = AsyncValue.data(FavoriteOutlinedButton(onTap: () => addFavorite()));
+      state = AsyncValue.data(FavoriteOutlinedButton(onPressed: () => addFavorite()));
     }
   }
 
@@ -76,10 +76,10 @@ class FavoriteButtonController extends StateNotifier<AsyncValue<Widget>> {
       state = const AsyncValue.loading();
       await favoriteService.removeFavorite(imageId: imageId);
       _isFavorite = false;
-      state = AsyncValue.data(FavoriteOutlinedButton(onTap: () => addFavorite()));
+      state = AsyncValue.data(FavoriteOutlinedButton(onPressed: () => addFavorite()));
     }
     catch(error, stackTrace) {
-      state = AsyncValue.data(FavoriteRedFilledButton(onTap: () => removeFavorite()));
+      state = AsyncValue.data(FavoriteRedFilledButton(onPressed: () => removeFavorite()));
     }
   }
 }

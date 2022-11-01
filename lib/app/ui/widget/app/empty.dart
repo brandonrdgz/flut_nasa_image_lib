@@ -1,19 +1,19 @@
-import 'package:flut_nasa_image_lib/app/ui/widget/common/common_info.dart';
+import 'package:flut_nasa_image_lib/app/ui/widget/app/info.dart';
 import 'package:flut_nasa_image_lib/app/utils/ui/app_icons.dart';
 import 'package:flutter/material.dart';
 
-class Error extends StatelessWidget {
+class Empty extends StatelessWidget {
   final String message;
-  
-  const Error({
+
+  const Empty({
     required this.message,
     super.key
   });
 
   @override
   Widget build(BuildContext context) {
-    return CommonInfo(
-      icon: AppIcons.error,
+    return Info(
+      icon: AppIcons.info,
       message: message
     );
   }

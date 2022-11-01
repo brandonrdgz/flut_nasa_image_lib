@@ -1,7 +1,7 @@
 import 'package:flut_nasa_image_lib/app/core/di.dart';
 import 'package:flut_nasa_image_lib/app/core/module/images/image.dart' as model;
 import 'package:flut_nasa_image_lib/app/ui/widget/app/app_scaffold.dart';
-import 'package:flut_nasa_image_lib/app/ui/widget/common/empty.dart';
+import 'package:flut_nasa_image_lib/app/ui/widget/app/empty.dart';
 import 'package:flut_nasa_image_lib/app/ui/widget/images/gallery/image_gallery_card.dart';
 import 'package:flut_nasa_image_lib/app/ui/widget/images/image_card.dart';
 import 'package:flut_nasa_image_lib/app/ui/widget/images/image_description_card.dart';

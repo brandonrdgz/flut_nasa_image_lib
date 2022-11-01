@@ -1,7 +1,8 @@
-import 'package:flut_nasa_image_lib/app/ui/widget/common/common_card.dart';
+import 'package:flut_nasa_image_lib/app/ui/widget/app/app_card.dart';
 import 'package:flut_nasa_image_lib/app/core/module/images/image.dart' as model;
 import 'package:flut_nasa_image_lib/app/ui/widget/favorites/favorite_button.dart';
 import 'package:flut_nasa_image_lib/app/utils/ui/app_icons.dart';
+import 'package:flut_nasa_image_lib/app/utils/widget/widget_ext.dart';
 import 'package:flut_nasa_image_lib/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
@@ -15,25 +16,21 @@ class ImageDescriptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonCard(
+    return AppCard(
       cardContent: Column(
         children: [
           ListTile(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  child: Text(image.title)
-                ),
+                Text(image.title).flexible(),
                 FavoriteButton(image: image),
               ],
             ),
             subtitle: Row(
               children: [
                 AppIcons.location,
-                Flexible(
-                  child: Text(image.location)
-                )
+                Text(image.location).flexible()
               ],
             ),
           ),

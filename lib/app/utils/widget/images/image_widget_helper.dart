@@ -12,24 +12,24 @@ class ImageWidgetHelper {
 
     if(connectivityResult == ConnectivityResult.wifi || connectivityResult == ConnectivityResult.mobile) {
       if(await ImageResource.localImageExist(imageUrl)) {
-        return offlineImage(imageUrl);
+        return _offlineImage(imageUrl);
       }
       else {
-        return onlineImage(imageUrl);
+        return _onlineImage(imageUrl);
       }
     }
 
-    return offlineImage(imageUrl);
+    return _offlineImage(imageUrl);
   }
 
-  static Widget onlineImage(String imageUrl) {
+  static Widget _onlineImage(String imageUrl) {
     return Image.network(
       imageUrl,
       fit: BoxFit.contain,
     );
   }
 
-  static Future<Widget> offlineImage(String imageUrl) async {
+  static Future<Widget> _offlineImage(String imageUrl) async {
     return Image.file(
       File(await ImageResource.getImagePath(imageUrl)),
       fit: BoxFit.contain,

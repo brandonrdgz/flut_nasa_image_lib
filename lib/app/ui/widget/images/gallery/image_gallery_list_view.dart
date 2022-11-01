@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flut_nasa_image_lib/app/core/di.dart';
 import 'package:flut_nasa_image_lib/app/ui/widget/images/gallery/image_gallery_overlay.dart';
 import 'package:flut_nasa_image_lib/app/utils/ui/app_sizes.dart';
+import 'package:flut_nasa_image_lib/app/utils/widget/widget_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swipe_image_gallery/swipe_image_gallery.dart';
@@ -28,28 +29,24 @@ class ImageGalleryListView extends ConsumerWidget {
           scrollDirection: Axis.horizontal,
           itemCount: images.length,
           itemBuilder: (context, index) {
-            return Padding(
-              padding: AppSizes.paddingAll,
-              child: InkWell(
-                child: images[index],
-                onTap: () {
-                  SwipeImageGallery(
-                    context: context,
-                    children: images,
-                    initialIndex: index,
-                    onSwipe: (index) {
-                      overlayController.add(ImageGalleryOverlay(
-                        title: '${index + 1}/${images.length}',
-                      ));
-                    },
-                    overlayController: overlayController,
-                    initialOverlay: ImageGalleryOverlay(
+            return images[index].inkWell(
+              onTap: () {
+                SwipeImageGallery(
+                  context: context,
+                  children: images,
+                  initialIndex: index,
+                  onSwipe: (index) {
+                    overlayController.add(ImageGalleryOverlay(
                       title: '${index + 1}/${images.length}',
-                    ),
-                  ).show();
-                },
-              ),
-            );
+                    ));
+                  },
+                  overlayController: overlayController,
+                  initialOverlay: ImageGalleryOverlay(
+                    title: '${index + 1}/${images.length}',
+                  ),
+                ).show();
+              },
+            ).padding(AppSizes.paddingAll);
           },
         );
       },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CommonSnackbar {
+class AppSnackbar {
   static SnackBar snackBar({
     required BuildContext context,
     required Widget content,

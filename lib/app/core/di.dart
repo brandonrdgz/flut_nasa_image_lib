@@ -10,6 +10,16 @@ import 'package:flut_nasa_image_lib/app/utils/widget/images/image_widget_helper.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Images Providers
+
+final imagesScreenControllerProvider = StateNotifierProvider
+  .autoDispose<ImagesScreenController, AsyncValue<List<model.Image>>>(
+    (ref) {
+      return ImagesScreenController(
+        imageService: ref.watch(imageServiceProvider),
+      );
+    }
+  );
 
 // Future provider for getting the image widget to show (local or network)
 final imageWidgetProvider = FutureProvider.family<Widget, String>(
@@ -22,27 +32,6 @@ final imageWidgetsProvider = FutureProvider.family<List<Widget>, List<String>>(
     imagesUrls.map<Future<Widget>>((imageUrl) => ImageWidgetHelper.getImageWidget(imageUrl: imageUrl)),
     eagerError: true
   ),
-);
-
-// Images Providers
-
-final imagesScreenControllerProvider = StateNotifierProvider
-  .autoDispose<ImagesScreenController, AsyncValue<List<model.Image>>>(
-    (ref) {
-      return ImagesScreenController(
-        imageService: ref.watch(imageServiceProvider),
-      );
-    }
-  );
-
-final favoriteButtonControllerProvider = StateNotifierProvider
-  .autoDispose.family<FavoriteButtonController, AsyncValue<Widget>, String>(
-    (ref, imageId) {
-      return FavoriteButtonController(
-        favoriteService: ref.watch(favoriteServiceProvider),
-        imageId: imageId,
-      );
-    }
 );
 
 final imageServiceProvider = Provider<ImageService>((ref) {
@@ -73,6 +62,16 @@ final favoritesScreenControllerProvider = StateNotifierProvider
       );
     }
   );
+
+final favoriteButtonControllerProvider = StateNotifierProvider
+  .autoDispose.family<FavoriteButtonController, AsyncValue<Widget>, String>(
+    (ref, imageId) {
+      return FavoriteButtonController(
+        favoriteService: ref.watch(favoriteServiceProvider),
+        imageId: imageId,
+      );
+    }
+);
 
 final favoriteServiceProvider = Provider<FavoriteService>((ref) {
   return FavoriteService(

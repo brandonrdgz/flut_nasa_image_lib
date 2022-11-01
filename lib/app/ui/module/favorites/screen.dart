@@ -3,8 +3,9 @@ import 'package:flut_nasa_image_lib/app/utils/ui/app_icons.dart';
 import 'package:flut_nasa_image_lib/generated/l10n.dart';
 import 'package:flut_nasa_image_lib/app/core/module/images/image.dart' as model;
 import 'package:flut_nasa_image_lib/app/ui/widget/app/app_scaffold.dart';
-import 'package:flut_nasa_image_lib/app/ui/widget/common/empty.dart';
-import 'package:flut_nasa_image_lib/app/ui/widget/common/error.dart';
+import 'package:flut_nasa_image_lib/app/ui/widget/app/empty.dart';
+import 'package:flut_nasa_image_lib/app/ui/widget/app/error.dart';
+import 'package:flut_nasa_image_lib/app/utils/widget/widget_ext.dart';
 import 'package:flut_nasa_image_lib/app/ui/widget/favorites/favorite_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -42,7 +43,7 @@ class FavoritesScreen extends ConsumerWidget {
         error: (error, stackTrace) {
           return Error(message: error.toString());
         },
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const CircularProgressIndicator().center(),
       ),
       buildActionButton: isNotEmpty,
       fABContent: AppIcons.delete,

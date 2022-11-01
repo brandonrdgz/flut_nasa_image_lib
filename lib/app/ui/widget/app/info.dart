@@ -1,11 +1,12 @@
 import 'package:flut_nasa_image_lib/app/utils/ui/app_sizes.dart';
+import 'package:flut_nasa_image_lib/app/utils/widget/widget_ext.dart';
 import 'package:flutter/material.dart';
 
-class CommonInfo extends StatelessWidget {
+class Info extends StatelessWidget {
   final Widget icon;
   final String message;
 
-  const CommonInfo({
+  const Info({
     required this.icon,
     required this.message,
     super.key,
@@ -15,17 +16,15 @@ class CommonInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: AppSizes.paddingAll,
-      child: Center(
-        child: Column(
-          children: [
-            icon,
-            Text(
-              message,
-              textAlign: TextAlign.justify,
-            ),
-          ],
-        ),
-      ),
+      child: Column(
+        children: [
+          icon,
+          Text(
+            message,
+            textAlign: TextAlign.justify,
+          ),
+        ],
+      ).center(),
     );
   }
 }
