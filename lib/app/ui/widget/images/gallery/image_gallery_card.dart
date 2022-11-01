@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flut_nasa_image_lib/app/core/module/images/image_gallery.dart';
 import 'package:flut_nasa_image_lib/app/ui/widget/common/common_card.dart';
-import 'package:flut_nasa_image_lib/app/utils/widget/images/image_widget_helper.dart';
 import 'package:flut_nasa_image_lib/app/ui/widget/images/gallery/image_gallery_list_view.dart';
 import 'package:flut_nasa_image_lib/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -20,21 +19,7 @@ class ImageGalleryCard extends StatefulWidget {
 }
 
 class _ImageGalleryCardState extends State<ImageGalleryCard> {
-  final List<Future<Widget>> _imageWidgetsFutures = [];
-  final List<Widget> _imageWidgets = [];
   final StreamController<Widget> _overlayController = StreamController<Widget>.broadcast();
-
-  @override
-  void initState() {
-    super.initState();
-    for(ImageGallery image in widget.imageGallery) {
-      _imageWidgetsFutures.add(
-        ImageWidgetHelper.getImageWidget(
-          imageUrl: image.imageUrl,
-        )
-      );
-    }
-  }
 
   @override
   void dispose() {
@@ -52,26 +37,10 @@ class _ImageGalleryCardState extends State<ImageGalleryCard> {
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height / 4,
-            child: FutureBuilder(
-              future: Future.wait(
-                _imageWidgetsFutures,
-                eagerError: true
-              ),
-              builder: (BuildContext context, AsyncSnapshot<List<Widget>> snapshot) {
-                if(snapshot.connectionState == ConnectionState.done) {
-                  if(_imageWidgets.isEmpty) {
-                    _imageWidgets.addAll(snapshot.data ?? []);
-                  }
-
-                  return ImageGalleryListView(
-                    widget: widget,
-                    imageWidgets: _imageWidgets,
-                    overlayController: _overlayController
-                  );
-                }
-
-                return const CircularProgressIndicator();
-              }
+            child: 
+            ImageGalleryListView(
+              overlayController: _overlayController,
+              imagesUrls: widget.imageGallery.map<String>((imageGallery) => imageGallery.imageUrl).toList(),
             ),
           ),
         ],

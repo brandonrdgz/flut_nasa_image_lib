@@ -61,7 +61,7 @@ class ImagesScreen extends ConsumerWidget {
 
 }
 
-class ImageDetailScreen extends ConsumerWidget {
+class ImageDetailScreen extends StatelessWidget {
   final model.Image image;
 
   const ImageDetailScreen({
@@ -70,10 +70,7 @@ class ImageDetailScreen extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<bool> favoriteAsyncValue = ref.watch(imageDetailScreenControllerProvider(image.id));
-    final AsyncValue<List<model.Image>> favoritesPageAsyncValue = ref.watch(favoritesScreenControllerProvider);
-
+  Widget build(BuildContext context) {
     return AppScaffold(
       buildDrawer: false,
       title: image.title,
@@ -85,8 +82,6 @@ class ImageDetailScreen extends ConsumerWidget {
             ),
             ImageDescriptionCard(
               image: image,
-              ref: ref,
-              favoriteAsyncValue: favoriteAsyncValue,
             ),
           ],
         ),
