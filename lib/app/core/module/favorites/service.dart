@@ -19,14 +19,14 @@ class FavoriteService {
     return await localFavoriteRepository.getFavorite(imageId: imageId);
   }
 
-  Future<List<Image>> getFavorites() async {
+  Stream<List<Future<Image>>> getFavorites() async* {
     ConnectivityResult connectivityResult = await Connectivity().checkConnectivity();
 
     if(connectivityResult == ConnectivityResult.wifi || connectivityResult == ConnectivityResult.mobile) {
 
     }
 
-    return await localFavoriteRepository.getFavorites();
+    yield* localFavoriteRepository.getFavorites();
   }
 
   Future<void> addFavorite({required String imageId}) async {

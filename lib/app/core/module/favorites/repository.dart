@@ -6,8 +6,8 @@ class LocalFavoriteRepository {
     return await FavoriteDB.getFavorite(imageId: imageId);
   }
 
-  Future<List<Image>> getFavorites() async {
-    return await FavoriteDB.getFavorites();
+  Stream<List<Future<Image>>> getFavorites() {
+    return FavoriteDB.getFavorites();
   }
 
   Future<void> addFavorite({required String imageId}) async {

@@ -16,33 +16,33 @@ class FavoritesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<List<model.Image>> favoritesAsyncValue = ref.watch(favoritesScreenControllerProvider);
+    final AsyncValue<List<model.Image>> favoritesScreenControllerAsyncValue = ref.watch(favoritesScreenControllerProvider);
     bool isNotEmpty = false;
 
     return AppScaffold(
       buildDrawer: false,
       title: S.of(context).favoritesPageTitle,
-      body: favoritesAsyncValue.when(
-        data: (favoritesListData) {
-          if(favoritesListData.isNotEmpty) {
-            isNotEmpty = true;
-            return ListView.builder(
-              itemCount: favoritesListData.length,
-              itemBuilder: (_, index) {
-                return FavoriteCard(
-                  favorite: favoritesListData[index],
-                );
-              },
-            );
-          }
-          else {
+      body: favoritesScreenControllerAsyncValue.when(
+        data: (favorites) {
+          if(favorites.isEmpty) {
             isNotEmpty = false;
             return Empty(message: S.of(context).emptyFavoritesList);
           }
+
+          isNotEmpty = true;
+
+          return ListView.builder(
+            itemCount: favorites.length,
+            itemBuilder: ((context, index) {
+              return FavoriteCard(
+                favorite: favorites[index],
+              );
+            }),
+          );
+
+
         },
-        error: (error, stackTrace) {
-          return Error(message: error.toString());
-        },
+        error: (error, stackTrace) => Error(message: error.toString()),
         loading: () => const CircularProgressIndicator().center(),
       ),
       buildActionButton: isNotEmpty,
