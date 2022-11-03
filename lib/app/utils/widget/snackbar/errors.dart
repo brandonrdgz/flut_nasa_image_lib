@@ -39,7 +39,6 @@ class Errors {
       context: context,
       content: Text(
         snackBarMessages.contentMessage,
-        style: Theme.of(context).textTheme.button,
       ),
       buildAction: snackBarMessages.hasActionMessage,
       actionText: snackBarMessages.actionMessage,

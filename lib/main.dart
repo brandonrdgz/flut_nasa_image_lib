@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       localizationsDelegates: const [
         S.delegate,
@@ -37,8 +38,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: AppColors.colorSchemeSeed,
-        brightness: Brightness.dark,
+        colorScheme: AppColors.lightColorScheme,
+        scaffoldBackgroundColor: AppColors.lightBackground,
+        drawerTheme: const DrawerThemeData(
+          backgroundColor: AppColors.lightBackground,
+        )
+      ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: AppColors.darkColorScheme,
+        scaffoldBackgroundColor: AppColors.darkBackground,
+        drawerTheme: const DrawerThemeData(
+          backgroundColor: AppColors.darkBackground,
+        )
       ),
       home: const ImagesScreen(),
     );

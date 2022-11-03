@@ -10,12 +10,10 @@ class AppSnackbar {
     void Function()? onActionPressed,
   }) {
     return SnackBar(
-      backgroundColor: Theme.of(context).cardColor,
       elevation: 4.0,
       content: content,
       duration: duration,
       action: buildAction == false ? null : SnackBarAction(
-        textColor: Theme.of(context).primaryTextTheme.button?.color?.withAlpha(128),
         label: actionText,
         onPressed: onActionPressed ?? () {},
       ),
