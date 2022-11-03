@@ -6,19 +6,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FavoritesScreenController extends StateNotifier<AsyncValue<List<Image>>> {
   final FavoriteService favoriteService;
-  //final StreamSubscription streamSubscription;
 
   FavoritesScreenController ({
     required this.favoriteService,
   }) : super(const AsyncValue.loading()) {
-    //streamSubscription = favoriteService.getFavorites().listen();
     getFavorites();
   }
 
   Future<void> getFavorites() async {
     try {
     state = const AsyncValue.loading();
-    //List<Future<Image>> imageFuturesList = await favoriteService.getFavorites().last;
 
     favoriteService.getFavorites().listen(
       (futureImagesList) async {

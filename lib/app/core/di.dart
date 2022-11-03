@@ -63,20 +63,6 @@ final favoritesScreenControllerProvider = StateNotifierProvider
     }
   );
 
-/* final favoritesStreamProvider = StreamProvider.autoDispose<List<Future<model.Image>>>((ref) {
-  return ref.watch(favoriteServiceProvider).getFavorites();
-},); */
-
-/* final favoritesFutureStreamProvider = FutureProvider.autoDispose((ref) {
-  return ref.watch(favoriteServiceProvider).getFavorites();
-},); */
-
-/* final favoritesFutureFavoritesList = FutureProvider.autoDispose.family<List<model.Image>, List<Future<model.Image>>>(
-  (ref, favoritesList) {
-    return Future.wait(favoritesList, eagerError: true);
-  },
-); */
-
 final favoriteButtonControllerProvider = StateNotifierProvider
   .autoDispose.family<FavoriteButtonController, AsyncValue<Widget>, String>(
     (ref, imageId) {
